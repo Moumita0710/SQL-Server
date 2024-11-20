@@ -1,0 +1,47 @@
+create database Moumita;
+
+--------creating table---------
+create table person(person_id int primary key, fname varchar(15), lname varchar(15));
+
+--------inserting values---------
+insert into person values(111,'Sanjay','Gandhi');
+insert into person values(111,'Rajiv','Gandhi');
+
+--------display table---------
+select * from person;
+
+--------deleting constraint from table---------
+alter table person drop constraint PK__person__543848DF762FF4BF; //PK__person__543848DF762FF4BF is automatic generated unique id
+
+--------add and delete  constraint with primary key in table---------
+alter table person add constraint pk_person_id primary key(person_id);
+alter table person drop constraint pk_person_id; 
+
+--------delete table---------
+drop table person;
+
+--------TABLE LEVEL CONSTRAINT---------
+create table person(person_id int, fname varchar(15), lname varchar(15),constraint pk_person_id primary key(person_id));
+select table_name,constraint_type,constraint_name FROM information_schema.TABLE_CONSTRAINTS
+drop table person;
+  
+create table person(person_id int,fname varchar(15),lname varchar(15),constraint pk_person_id primary key(person_id),constraint un_person_fname unique(fname));
+insert into person values(112,'Sanjay','Gandhi');
+insert into person (person_id,lname) values(113,'Gandhi');
+select * from person;
+alter table person drop constraint un_person_fname;
+alter table person add constraint un_person_fname unique(fname);
+
+--------FOREIGN KEY---------
+create table courses( course_id int primary key,course_name varchar(20),person_id int,constraint fk_person_id foreign key(person_id) references person(person_id))
+insert into courses values(1000,'Java',111);
+insert into courses values(1001,'Python',111);
+select *from person;
+select *from courses;
+alter table courses drop constraint fk_person_id
+
+alter table person add city varchar(10);
+alter table person add constraint chk_person_city check(city in('Pune','Mumbai','Nagpur'));
+update person set city='Nashik';
+
+
