@@ -1,21 +1,6 @@
 create database Moumita
-use Moumita;
-create table emp(empno int primary key,
-ename varchar(10) default NUll,job varchar(9) default null,
-mgr decimal(4,0) default null,hiredate date default null,
-sal decimal(7,2) default null,
-comm decimal(7,2) default null,
-deptno int not null,
-foreign key(deptno)references dept(deptno));
 
-create table dept(deptno int primary key,
-dname varchar(14) default null,
-loc varchar(13) default null);
-insert into dept values(10,'Accounting','New York');
-insert into dept values(20,'Research','Dallas');
-insert into dept values(30,'Sales','Chicago');
-insert into dept values(40,'Operation','Boston');
-insert into emp values(7369,'Smith','Clerk',7902,'1980-12-17',800.00,null,20);
+
 create table dept1(deptno int primary key,
 dname varchar(14) default null,
 loc varchar(13) default null);
@@ -68,11 +53,10 @@ select ename from emp1 where ename like 's_o%';
 select ename from emp1 where ename like '[A-D]%';
 
 select ename from emp1 where ename like '[^A-D]%';
-
-
-
-
-
-
-
-
+select deptno,count(*) from emp1 group by deptno;
+select deptno,avg(sal) from emp1 group by deptno;
+select deptno,max(sal) from emp1 group by deptno;
+select deptno,job,count(job) from emp1 group by deptno,job
+select deptno,job,count(job) from emp1 where job='salesman' group by deptno,job having count(*)>3
+select deptno,job,count(job)from emp1 group by deptno,job with cube
+select deptno,job,count(job)from emp1 group by deptno,job with Rollup
