@@ -39,3 +39,8 @@ select ename,hiredate from emp1 where deptno=(select deptno from emp1 where enam
 
 select ename,deptno,job from emp1 where deptno=(select deptno from dept1 where loc='Dallas') and ename!='Dallas'
 
+select empno,ename,sal from emp1 where sal>(select avg(sal) from emp1)order by sal desc
+ 
+select e.empno,e.ename from emp1 e where e.deptno in(select deptno from emp1 where ename like 'S%');
+
+select e.ename,e.sal from emp1 e where e.mgr=(select m.empno from emp1 m where m.ename='king');
