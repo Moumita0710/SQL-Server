@@ -71,3 +71,55 @@ select deptno=@dno,sum(sal) from emp1
 end
 exec deptusers 10
 
+-----Procedure with output parameter----
+create procedure totalsal(@deptno int , @total int output)
+as
+begin
+select @total=sum(sal) from emp1 group by(deptno) having deptno=@deptno
+end
+declare @T int;
+exec totalsal 20,@T output
+select @T
+
+create procedure maxmin(@deptno int, @min int output,@max int output)
+as begin
+select @min=min(sal),@max=max(sal) from emp1 where deptno=@deptno;
+end
+declare @min int, @max int
+exec maxmin 10,@min output,@max output
+select @min,@max
+---Assignment----
+----Enter 2 no as input and display addition as output
+
+create procedure addition(@num1 int,@num2 int, @add int output)
+as begin
+set @add=@num1+@num2;
+--select 'addition of', @num1,'and',@num2'is',@add--
+end
+declare @add int
+exec addition 5,6, @add output
+select @add
+
+--if-else--
+create procedure eligible(@age int, @result varchar(30) output)
+as begin
+if(@age>=18)
+  select @result='Eligible fro voting'
+else
+  select @result='Not Eligible for voting'
+end
+declare @res varchar(30)
+exec eligible 10,@res output
+select @res
+
+create procedure insertEmp(@deptno int)
+as begin
+declare @C int;
+select @C=count(*) from emp1 where deptno=@deptno
+if(@C<5)
+  insert into emp1(empno,ename,deptno)values(33214,'Jagruti',@deptno)
+else
+  select 'count not less than 5'
+end
+exec insertEmp 20
+
