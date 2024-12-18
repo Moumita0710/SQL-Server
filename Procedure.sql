@@ -53,13 +53,15 @@ end
 exec subnadd 21,12
 
 ----create procedure to display all the records of employee table where minimum and maximum sal is entered by user----
-create procedure minmax(@min as int, @max as int)
+--create procedure minmax(@min as int, @max as int)--
+create procedure maxmin(@deptno int)
 as 
 begin
 select * from emp1
-select * from emp1 where sal>=@min and sal<=@max;
+--select * from emp1 where sal>=@min and sal<=@max;--
+  select min(sal),max(sal) from emp1 where deptno=@deptno;
 end
-exec minmax 1000,1500
+exec minmax 10
 ----create procedure to find department wise sum of sal where department no is enterd by user
 create procedure deptusers(@dno as int)
 as 
