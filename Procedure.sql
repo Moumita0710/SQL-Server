@@ -119,6 +119,19 @@ select @C=count(*) from emp1 where deptno=@deptno
 if(@C<5)
   insert into emp1(empno,ename,deptno)values(33214,'Jagruti',@deptno)
 else
+
+  ---Assignment---
+  
+  create procedure calc1(@deptno int)
+as begin
+if(@deptno=10)
+select comm+2000 from emp1 where deptno=@deptno
+else if(@deptno=20)
+select comm+3000 from emp1 where deptno=@deptno
+else
+select comm+(sal)*5/100 from emp1
+end
+exec calc1 30
   select 'count not less than 5'
 end
 exec insertEmp 20
